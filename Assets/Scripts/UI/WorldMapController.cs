@@ -1,47 +1,46 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class WorldMapController : MonoBehaviour
 {
-    public Transform player; // í”Œë ˆì´ì–´ Transform
-    public RectTransform mapRect; // ì§€ë„ UI Rect Transform
-    public RectTransform playerIcon; // í”Œë ˆì´ì–´ ì•„ì´ì½˜ UI Rect Transform
+    public Transform player; // ÇÃ·¹ÀÌ¾î Transform
+    public RectTransform mapRect; // Áöµµ UI Rect Transform
+    public RectTransform playerIcon; // ÇÃ·¹ÀÌ¾î ¾ÆÀÌÄÜ UI Rect Transform
 
-    // ê²Œì„ ë§µì˜ í¬ê¸° (ì˜ˆë¥¼ ë“¤ì–´, ê°€ë¡œ 200, ì„¸ë¡œ 200)
+    // °ÔÀÓ ¸ÊÀÇ Å©±â (¿¹¸¦ µé¾î, °¡·Î 200, ¼¼·Î 200)
     public Vector2 mapSize = new Vector2(200, 200);
 
-    // ì§€ì—­ ì •ë³´ í´ë˜ìŠ¤
+    // Áö¿ª Á¤º¸ Å¬·¡½º
     [System.Serializable]
     public class RegionInfo
     {
-        public string mapName; // ì§€ì—­ ì´ë¦„
-        public BoxCollider2D regionCollider; // ì§€ì—­ì„ ë‚˜íƒ€ë‚´ëŠ” ë°•ìŠ¤ ì½œë¼ì´ë”
-        public GameObject miniMap; // í•´ë‹¹ ì§€ì—­ì˜ ë¯¸ë‹ˆë§µ
-        // ì¶”ê°€ì ì¸ ì§€ì—­ ì •ë³´ë¥¼ ì›í•˜ëŠ”ëŒ€ë¡œ ì •ì˜í•  ìˆ˜ ìˆìŒ
+        public string mapName; // Áö¿ª ÀÌ¸§
+        public BoxCollider2D regionCollider; // Áö¿ªÀ» ³ªÅ¸³»´Â ¹Ú½º Äİ¶óÀÌ´õ
+        public GameObject miniMap; // ÇØ´ç Áö¿ªÀÇ ¹Ì´Ï¸Ê
+        // Ãß°¡ÀûÀÎ Áö¿ª Á¤º¸¸¦ ¿øÇÏ´Â´ë·Î Á¤ÀÇÇÒ ¼ö ÀÖÀ½
     }
 
-    public List<RegionInfo> regions = new List<RegionInfo>(); // ì§€ì—­ ì •ë³´ ë¦¬ìŠ¤íŠ¸
-    public TextMeshProUGUI mapNameText; // ì§€ë„ ì´ë¦„ì„ í‘œì‹œí•  UI í…ìŠ¤íŠ¸
-    public GameObject background; // ë°°ê²½ì„ ë‚˜íƒ€ë‚´ëŠ” GameObject
+    public List<RegionInfo> regions = new List<RegionInfo>(); // Áö¿ª Á¤º¸ ¸®½ºÆ®
+    public Text mapNameText; // Áöµµ ÀÌ¸§À» Ç¥½ÃÇÒ UI ÅØ½ºÆ®
+    public GameObject background; // ¹è°æÀ» ³ªÅ¸³»´Â GameObject
 
-    private string currentMapName = ""; // í˜„ì¬ í”Œë ˆì´ì–´ê°€ ìœ„ì¹˜í•œ ì§€ì—­ ì´ë¦„
+    private string currentMapName = ""; // ÇöÀç ÇÃ·¹ÀÌ¾î°¡ À§Ä¡ÇÑ Áö¿ª ÀÌ¸§
 
     void Update()
     {
-        // 'M' í‚¤ë¥¼ ëˆŒë €ì„ ë•Œ ë§µê³¼ ë¯¸ë‹ˆë§µì„ ë³´ì´ê±°ë‚˜ ìˆ¨ê¸°ë„ë¡ ì²˜ë¦¬
+        // 'M' Å°¸¦ ´­·¶À» ¶§ ¸Ê°ú ¹Ì´Ï¸ÊÀ» º¸ÀÌ°Å³ª ¼û±âµµ·Ï Ã³¸®
         if (Input.GetKeyDown(KeyCode.M))
         {
-            // í˜„ì¬ ë§µì´ ë³´ì´ëŠ” ìƒíƒœë©´ ë§µì„ ìˆ¨ê¹€
+            // ÇöÀç ¸ÊÀÌ º¸ÀÌ´Â »óÅÂ¸é ¸ÊÀ» ¼û±è
             bool mapIsActive = !mapRect.gameObject.activeSelf;
             mapRect.gameObject.SetActive(mapIsActive);
 
-            // ë°°ê²½ë„ í•¨ê»˜ í™œì„±í™”/ë¹„í™œì„±í™”
+            // ¹è°æµµ ÇÔ²² È°¼ºÈ­/ºñÈ°¼ºÈ­
             background.SetActive(mapIsActive);
 
-            // ë¯¸ë‹ˆë§µë„ í•¨ê»˜ í™œì„±í™”/ë¹„í™œì„±í™”
+            // ¹Ì´Ï¸Êµµ ÇÔ²² È°¼ºÈ­/ºñÈ°¼ºÈ­
             foreach (RegionInfo region in regions)
             {
                 if (region.miniMap != null)
@@ -51,64 +50,64 @@ public class WorldMapController : MonoBehaviour
             }
         }
 
-        // ë§µì´ ë³´ì´ëŠ” ìƒíƒœì¼ ë•Œë§Œ ë§µ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
+        // ¸ÊÀÌ º¸ÀÌ´Â »óÅÂÀÏ ¶§¸¸ ¸Ê À§Ä¡ ¾÷µ¥ÀÌÆ®
         if (mapRect.gameObject.activeSelf)
         {
-            // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ê²Œì„ ë§µì˜ ì¢Œí‘œë¡œ ë³€í™˜
+            // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ °ÔÀÓ ¸ÊÀÇ ÁÂÇ¥·Î º¯È¯
             Vector2 mapPosition = new Vector2(
-                Mathf.Clamp(player.position.x, -mapSize.x / 2f, mapSize.x / 2f), // x ì¢Œí‘œ ì œí•œ
-                Mathf.Clamp(player.position.y, -mapSize.y / 2f, mapSize.y / 2f) // y ì¢Œí‘œ ì œí•œ
+                Mathf.Clamp(player.position.x, -mapSize.x / 2f, mapSize.x / 2f), // x ÁÂÇ¥ Á¦ÇÑ
+                Mathf.Clamp(player.position.y, -mapSize.y / 2f, mapSize.y / 2f) // y ÁÂÇ¥ Á¦ÇÑ
             );
 
-            // ê²Œì„ ë§µì˜ ì¢Œí‘œë¥¼ UI ì§€ë„ì˜ ì¢Œí‘œë¡œ ë³€í™˜
+            // °ÔÀÓ ¸ÊÀÇ ÁÂÇ¥¸¦ UI ÁöµµÀÇ ÁÂÇ¥·Î º¯È¯
             Vector2 normalizedPosition = new Vector2(
                 mapPosition.x / mapSize.x,
                 mapPosition.y / mapSize.y
             );
 
-            // UI ì§€ë„ì˜ í¬ê¸°ì— ë§ê²Œ ë³€í™˜
+            // UI ÁöµµÀÇ Å©±â¿¡ ¸Â°Ô º¯È¯
             Vector2 mapRectSize = mapRect.rect.size;
             Vector2 mapPositionPixels = new Vector2(
                 normalizedPosition.x * mapRectSize.x,
                 normalizedPosition.y * mapRectSize.y
             );
 
-            // UI ì§€ë„ ë‚´ì—ì„œ í”Œë ˆì´ì–´ ì•„ì´ì½˜ì˜ ìœ„ì¹˜ ì¡°ì •
+            // UI Áöµµ ³»¿¡¼­ ÇÃ·¹ÀÌ¾î ¾ÆÀÌÄÜÀÇ À§Ä¡ Á¶Á¤
             playerIcon.anchoredPosition = mapPositionPixels;
 
-            // í”Œë ˆì´ì–´ê°€ ì–´ë–¤ ì§€ì—­ì— ì†í•´ ìˆëŠ”ì§€ í™•ì¸í•˜ì—¬ ì§€ë„ ì´ë¦„ ì—…ë°ì´íŠ¸
+            // ÇÃ·¹ÀÌ¾î°¡ ¾î¶² Áö¿ª¿¡ ¼ÓÇØ ÀÖ´ÂÁö È®ÀÎÇÏ¿© Áöµµ ÀÌ¸§ ¾÷µ¥ÀÌÆ®
             UpdateMapName();
         }
     }
 
-    // ì§€ë„ ì´ë¦„ ì—…ë°ì´íŠ¸ í•¨ìˆ˜
+    // Áöµµ ÀÌ¸§ ¾÷µ¥ÀÌÆ® ÇÔ¼ö
     void UpdateMapName()
     {
-        // í”Œë ˆì´ì–´ê°€ ì–´ë–¤ ì§€ì—­ì— ì†í•´ ìˆëŠ”ì§€ ì—¬ë¶€
+        // ÇÃ·¹ÀÌ¾î°¡ ¾î¶² Áö¿ª¿¡ ¼ÓÇØ ÀÖ´ÂÁö ¿©ºÎ
         bool isInAnyRegion = false;
 
-        // í”Œë ˆì´ì–´ê°€ ì–´ë–¤ ì§€ì—­ì— ì†í•´ ìˆëŠ”ì§€ í™•ì¸
+        // ÇÃ·¹ÀÌ¾î°¡ ¾î¶² Áö¿ª¿¡ ¼ÓÇØ ÀÖ´ÂÁö È®ÀÎ
         foreach (RegionInfo region in regions)
         {
-            // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ê°€ ì§€ì—­ ë‚´ì— ìˆëŠ”ì§€ ë°•ìŠ¤ ì½œë¼ì´ë”ë¥¼ ì‚¬ìš©í•˜ì—¬ í™•ì¸
+            // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡°¡ Áö¿ª ³»¿¡ ÀÖ´ÂÁö ¹Ú½º Äİ¶óÀÌ´õ¸¦ »ç¿ëÇÏ¿© È®ÀÎ
             if (region.regionCollider != null && region.regionCollider.bounds.Contains(player.position))
             {
-                // í”Œë ˆì´ì–´ê°€ ë‹¤ë¥¸ ì§€ì—­ìœ¼ë¡œ ì´ë™í•œ ê²½ìš°ì—ë§Œ ì§€ë„ ì´ë¦„ ì—…ë°ì´íŠ¸
+                // ÇÃ·¹ÀÌ¾î°¡ ´Ù¸¥ Áö¿ªÀ¸·Î ÀÌµ¿ÇÑ °æ¿ì¿¡¸¸ Áöµµ ÀÌ¸§ ¾÷µ¥ÀÌÆ®
                 if (currentMapName != region.mapName)
                 {
-                    // ì§€ë„ ì´ë¦„ ì—…ë°ì´íŠ¸
+                    // Áöµµ ÀÌ¸§ ¾÷µ¥ÀÌÆ®
                     mapNameText.text = region.mapName;
-                    currentMapName = region.mapName; // í˜„ì¬ ì§€ë„ ì´ë¦„ ì—…ë°ì´íŠ¸
+                    currentMapName = region.mapName; // ÇöÀç Áöµµ ÀÌ¸§ ¾÷µ¥ÀÌÆ®
                 }
-                isInAnyRegion = true; // í”Œë ˆì´ì–´ê°€ ì–´ë–¤ ì§€ì—­ì— ì†í•´ ìˆìŒì„ í‘œì‹œ
+                isInAnyRegion = true; // ÇÃ·¹ÀÌ¾î°¡ ¾î¶² Áö¿ª¿¡ ¼ÓÇØ ÀÖÀ½À» Ç¥½Ã
             }
         }
 
-        // í”Œë ˆì´ì–´ê°€ ì–´ë–¤ ì§€ì—­ì— ì†í•´ ìˆì§€ ì•Šìœ¼ë©´ ì§€ë„ ì´ë¦„ì„ ë¹„ì›€
+        // ÇÃ·¹ÀÌ¾î°¡ ¾î¶² Áö¿ª¿¡ ¼ÓÇØ ÀÖÁö ¾ÊÀ¸¸é Áöµµ ÀÌ¸§À» ºñ¿ò
         if (!isInAnyRegion)
         {
             mapNameText.text = "";
-            currentMapName = ""; // í˜„ì¬ ì§€ë„ ì´ë¦„ ì´ˆê¸°í™”
+            currentMapName = ""; // ÇöÀç Áöµµ ÀÌ¸§ ÃÊ±âÈ­
         }
     }
 }
