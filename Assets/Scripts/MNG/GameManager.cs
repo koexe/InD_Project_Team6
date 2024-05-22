@@ -97,11 +97,10 @@ public class GameManager : MonoBehaviour
     }
     public void SaveALLPlayerUnit()
     {
-        for(int i = 0; i<m_UnitManager.CheckUnitAmount();i++)
+        foreach(var Unit in m_UnitManager.g_PlayerUnits)
         {
-            UnitEntity unitEntity = m_UnitManager.g_PlayerUnits[i].transform.GetComponent<UnitEntity>();
-            m_DataManager.SaveByUnit(unitEntity.m_sUnitName, unitEntity );
-
+            UnitEntity unitEntity = Unit.transform.GetComponent<UnitEntity>();
+            m_DataManager.SaveByUnit(unitEntity.m_sUnitName, unitEntity);
         }
         m_DataManager.SaveFunc_ALL();
     }

@@ -24,13 +24,6 @@ public class DataAssetManager
         m_UnitDic = new Dictionary<string, UnitTable.UnitStats>();
         m_ItemDic = new Dictionary<string, ItemTable.ItemStats>();
         m_UnitSaveDic = new Dictionary<string, UnitTable.UnitStats_Save>();
-        string path = Application.persistentDataPath + "Save.json";
-        if (!File.Exists(path))
-        {
-            InitSaveData();
-            SaveFunc_ALL();
-        }
-
         LoadFunc();
         if (m_AssetUnitTable == null)
         {
@@ -115,6 +108,7 @@ public class DataAssetManager
 
     public void SaveFunc_ALL()
     {
+       
         string path = Application.persistentDataPath + "Save.json";
         if (File.Exists(path))
             System.IO.File.Delete(path);
@@ -129,10 +123,10 @@ public class DataAssetManager
         {
             string JsonDataTemp = File.ReadAllText(path);
             m_UnitSaveDic = JsonConvert.DeserializeObject<Dictionary<string, UnitTable.UnitStats_Save>>(JsonDataTemp);
+
         }
         else
         {
-            InitSaveData();
             SaveFunc_ALL();
             LoadFunc();
             Debug.Log("Savefile missed. created new Savefile");

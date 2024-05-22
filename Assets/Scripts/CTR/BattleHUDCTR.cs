@@ -1,39 +1,36 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class BattleHUDCTR : MonoBehaviour
 {
-    // UI ìš”ì†Œë“¤
-    public TextMeshProUGUI nameText;   // ì´ë¦„ì„ í‘œì‹œí•˜ëŠ” í…ìŠ¤íŠ¸
-    public TextMeshProUGUI levelText;  // ë ˆë²¨ì„ í‘œì‹œí•˜ëŠ” í…ìŠ¤íŠ¸
-    public TextMeshProUGUI StateText;
-    public TextMeshProUGUI HPText;
-    public Slider hpSlider; // ì²´ë ¥ì„ í‘œì‹œí•˜ëŠ” ìŠ¬ë¼ì´ë”
+    // UI ¿ä¼Òµé
+    public Text nameText;   // ÀÌ¸§À» Ç¥½ÃÇÏ´Â ÅØ½ºÆ®
+    public Text levelText;  // ·¹º§À» Ç¥½ÃÇÏ´Â ÅØ½ºÆ®
+    public Text StateText;
+    public Slider hpSlider; // Ã¼·ÂÀ» Ç¥½ÃÇÏ´Â ½½¶óÀÌ´õ
 
-    public Image g_imagePortrait; // ì´ˆìƒí™” ì´ë¯¸ì§€
+    public Image g_imagePortrait; // ÃÊ»óÈ­ ÀÌ¹ÌÁö
 
-    // HUDë¥¼ ì„¤ì •í•˜ëŠ” ë©”ì„œë“œ
+    // HUD¸¦ ¼³Á¤ÇÏ´Â ¸Ş¼­µå
     public void SetHUD(UnitEntity unit)
     {
-        // ìœ ë‹›ì˜ ì´ë¦„ì„ í…ìŠ¤íŠ¸ë¡œ ì„¤ì •
+        // À¯´ÖÀÇ ÀÌ¸§À» ÅØ½ºÆ®·Î ¼³Á¤
         nameText.text = unit.m_sUnitName;
-        // ìœ ë‹›ì˜ ë ˆë²¨ì„ í…ìŠ¤íŠ¸ë¡œ ì„¤ì •
+        // À¯´ÖÀÇ ·¹º§À» ÅØ½ºÆ®·Î ¼³Á¤
         levelText.text = "Lvl " + unit.m_iUnitLevel;
-        // ìŠ¬ë¼ì´ë”ì˜ ìµœëŒ€ê°’ì„ ìœ ë‹›ì˜ ìµœëŒ€ ì²´ë ¥ìœ¼ë¡œ ì„¤ì •
+        // ½½¶óÀÌ´õÀÇ ÃÖ´ë°ªÀ» À¯´ÖÀÇ ÃÖ´ë Ã¼·ÂÀ¸·Î ¼³Á¤
         hpSlider.maxValue = unit.m_iUnitHP;
-        // ìŠ¬ë¼ì´ë”ì˜ ê°’(ì²´ë ¥)ì„ ìœ ë‹›ì˜ í˜„ì¬ ì²´ë ¥ìœ¼ë¡œ ì„¤ì •
+        // ½½¶óÀÌ´õÀÇ °ª(Ã¼·Â)À» À¯´ÖÀÇ ÇöÀç Ã¼·ÂÀ¸·Î ¼³Á¤
         hpSlider.value = unit.m_iCurrentHP;
-        HPText.text = unit.m_iCurrentHP + "/" + unit.m_iUnitHP;
         //StateText.text = unit.g_UnitState.ToString();
     }
 
-    // ì²´ë ¥ì„ ì—…ë°ì´íŠ¸í•˜ëŠ” ë©”ì„œë“œ
+    // Ã¼·ÂÀ» ¾÷µ¥ÀÌÆ®ÇÏ´Â ¸Ş¼­µå
     public void SetHP(int hp)
     {
-        // ìŠ¬ë¼ì´ë”ì˜ ê°’(ì²´ë ¥)ì„ ì£¼ì–´ì§„ ê°’ìœ¼ë¡œ ì„¤ì •
+        // ½½¶óÀÌ´õÀÇ °ª(Ã¼·Â)À» ÁÖ¾îÁø °ªÀ¸·Î ¼³Á¤
         hpSlider.value = hp;
     }
 }

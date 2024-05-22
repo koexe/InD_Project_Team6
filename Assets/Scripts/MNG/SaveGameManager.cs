@@ -1,45 +1,34 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.IO;
-using Newtonsoft.Json;
 
 public class SaveGameManager : MonoBehaviour
 {
     public GameObject player;
     public QuestManager questManager;
-    public TextMeshProUGUI QuestTalk; // Text í˜•ì‹ ì‚¬ìš©ì„ ìœ„í•œ ì„ ì–¸
+    public Text QuestTalk; // Text Çü½Ä »ç¿ëÀ» À§ÇÑ ¼±¾ğ
 
-    public GameObject menuSet; // menuSet ë³€ìˆ˜ ì„ ì–¸
+    public GameObject menuSet; // menuSet º¯¼ö ¼±¾ğ
 
     void Start()
     {
-        player = GameObject.Find("Player");
         GameLoad();
         QuestTalk.text = questManager.CheckQuest();
     }
 
-    
-    // ê²Œì„ì„ ì €ì¥í•˜ëŠ” í•¨ìˆ˜
+    // °ÔÀÓÀ» ÀúÀåÇÏ´Â ÇÔ¼ö
     public void SaveGame()
     {
-        // í”Œë ˆì´ì–´ì˜ í˜„ì¬ ìœ„ì¹˜ ì €ì¥
+        // ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç À§Ä¡ ÀúÀå
         PlayerPrefs.SetFloat("PlayerX", player.transform.position.x);
         PlayerPrefs.SetFloat("PlayerY", player.transform.position.y);
 
-        // í€˜ìŠ¤íŠ¸ ì§„í–‰ ìƒí™© ì €ì¥
+        // Äù½ºÆ® ÁøÇà »óÈ² ÀúÀå
         PlayerPrefs.SetInt("QuestId", questManager.questId);
         PlayerPrefs.SetInt("QuestActionIndex", questManager.questActionIndex);
 
-        GameManager.Instance.SaveALLPlayerUnit();
-
-
-
-        // ì¸ë²¤í† ë¦¬ ì €ì¥
-        SaveInventory();
-        // PlayerPrefs ì €ì¥
+        // PlayerPrefs ÀúÀå
         PlayerPrefs.Save();
 
         menuSet.SetActive(false);
@@ -58,54 +47,5 @@ public class SaveGameManager : MonoBehaviour
         player.transform.position = new Vector3(x, y, 0);
         questManager.questId = questId;
         questManager.questActionIndex = questActionIndex;
-
-        // ì¸ë²¤í† ë¦¬ ë¶ˆëŸ¬ì˜¤ê¸°
-        LoadInventory();
     }
-    #region ì¸ë²¤í† ë¦¬ ì €ì¥
-    private void SaveInventory()
-    {
-        Dictionary<string, int> ItemSaveDic = new Dictionary<string, int>();
-
-        foreach (Slot slot in Inventory_Controller.g_ICinstance.g_Sslot)
-        {
-            if (slot != null && slot.g_Ihave_item != null)
-            {
-                ItemEntity.ItemStats_Save itemStats = new ItemEntity.ItemStats_Save();
-                ItemSaveDic.Add(slot.g_Ihave_item.m_sItemName, slot.g_iitem_Number); //ê°¯ìˆ˜ë§Œí¼ ë„£ì–´ì¤Œ
-            }
-        }
-
-        string path = Path.Combine(Application.persistentDataPath, "inventory_data.json");
-
-        string json = JsonConvert.SerializeObject(ItemSaveDic, Formatting.Indented);
-
-        File.WriteAllText(path, json);
-    }
-
-    private static void LoadInventory()
-    {
-        string path = Path.Combine(Application.persistentDataPath, "inventory_data.json");
-
-        if (File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-
-
-            Dictionary<string, int> tempDic = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
-
-            foreach (var item in tempDic)
-            {
-                GameObject entity = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/ItemEntity"));
-                entity.transform.GetComponent<ItemEntity>().m_sItemName = item.Key;
-                entity.transform.GetComponent<ItemEntity>().SetItemInfo();
-
-                Inventory_Controller.g_ICinstance.Set_GetItem(entity);
-                Inventory_Controller.g_ICinstance.Check_Slot(item.Value);
-
-                Debug.Log("Loaded Item:" + item.Key + "Amount:" + item.Value);
-            }
-        }
-    }
-    #endregion
 }

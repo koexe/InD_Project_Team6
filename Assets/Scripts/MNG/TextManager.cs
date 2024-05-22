@@ -1,8 +1,7 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class TextManager : MonoBehaviour
 {
@@ -10,40 +9,40 @@ public class TextManager : MonoBehaviour
     public QuestManager questManager;
     public GameObject m_talkPanel;
     public Image m_portraitImg;
-    public TextMeshProUGUI m_talkText;
+    public Text m_talkText;
     public GameObject m_scanObject;
     public bool isAct;
     public int talkIndex;
-    public TextMeshProUGUI QuestTalk;
+    public Text QuestTalk;
 
-    // ê²Œì„ì´ ì‹œì‘ë  ë•Œ í˜„ì¬ í€˜ìŠ¤íŠ¸ì˜ ìƒíƒœë¥¼ í™•ì¸í•˜ì—¬ ë¡œê·¸ì— ì¶œë ¥í•©ë‹ˆë‹¤.
+    // °ÔÀÓÀÌ ½ÃÀÛµÉ ¶§ ÇöÀç Äù½ºÆ®ÀÇ »óÅÂ¸¦ È®ÀÎÇÏ¿© ·Î±×¿¡ Ãâ·ÂÇÕ´Ï´Ù.
     void Start()
     {
         QuestTalk.text = questManager.CheckQuest();
     }
 
 
-    // ìƒí˜¸ì‘ìš© 
+    // »óÈ£ÀÛ¿ë 
     public void Act(GameObject scanObj)
     {
-        // ìŠ¤ìº”ëœ ì˜¤ë¸Œì íŠ¸ë¥¼ ì €ì¥í•˜ê³  ì˜¤ë¸Œì íŠ¸ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜´
+        // ½ºÄµµÈ ¿ÀºêÁ§Æ®¸¦ ÀúÀåÇÏ°í ¿ÀºêÁ§Æ® µ¥ÀÌÅÍ¸¦ °¡Á®¿È
         m_scanObject = scanObj;
         ObjData objData = m_scanObject.GetComponent<ObjData>();
-        // ëŒ€í™” í•¨ìˆ˜ í˜¸ì¶œ
+        // ´ëÈ­ ÇÔ¼ö È£Ãâ
         Talk(objData.id, objData.isNpc);
 
-        // ëŒ€í™” íŒ¨ë„ í™œì„±í™”
+        // ´ëÈ­ ÆĞ³Î È°¼ºÈ­
         m_talkPanel.SetActive(isAct);
     }
 
-    #region ëŒ€í™” ê´€ë ¨
+    #region ´ëÈ­ °ü·Ã
     void Talk(int id, bool isNpc)
     {
-        // ëŒ€í™” ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
+        // ´ëÈ­ µ¥ÀÌÅÍ °¡Á®¿À±â
         int questTalkIndex = questManager.GetQuestTalkIndex(id);
         string talkData = m_TalkManager.GetTalk(id + questTalkIndex, talkIndex);
 
-        // ëŒ€í™” ë°ì´í„°ê°€ ì—†ìœ¼ë©´ ìƒí˜¸ì‘ìš© ì¢…ë£Œ
+        // ´ëÈ­ µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é »óÈ£ÀÛ¿ë Á¾·á
         if (talkData == null)
         {
             isAct = false;
@@ -53,24 +52,24 @@ public class TextManager : MonoBehaviour
             return;
         }
 
-        // NPCì¸ ê²½ìš°
+        // NPCÀÎ °æ¿ì
         if (isNpc)
         {
-            // ëŒ€í™” í…ìŠ¤íŠ¸ ì„¤ì •
+            // ´ëÈ­ ÅØ½ºÆ® ¼³Á¤
             m_talkText.text = talkData.Split(':')[0];
-            // ì´ˆìƒí™” ì´ë¯¸ì§€ ì„¤ì •
+            // ÃÊ»óÈ­ ÀÌ¹ÌÁö ¼³Á¤
             m_portraitImg.sprite = m_TalkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
-            m_portraitImg.color = new Color(1, 1, 1, 1); // ì´ˆìƒí™” ì´ë¯¸ì§€ íˆ¬ëª…ë„ ì„¤ì •
+            m_portraitImg.color = new Color(1, 1, 1, 1); // ÃÊ»óÈ­ ÀÌ¹ÌÁö Åõ¸íµµ ¼³Á¤
         }
-        else // NPCê°€ ì•„ë‹Œ ê²½ìš°
+        else // NPC°¡ ¾Æ´Ñ °æ¿ì
         {
-            // ëŒ€í™” í…ìŠ¤íŠ¸ ì„¤ì •
+            // ´ëÈ­ ÅØ½ºÆ® ¼³Á¤
             m_talkText.text = talkData;
-            // ì´ˆìƒí™” ì´ë¯¸ì§€ íˆ¬ëª…í•˜ê²Œ ì„¤ì •
+            // ÃÊ»óÈ­ ÀÌ¹ÌÁö Åõ¸íÇÏ°Ô ¼³Á¤
             m_portraitImg.color = new Color(1, 1, 1, 0);
         }
 
-        // ìƒí˜¸ì‘ìš© í™œì„±í™” ë° ëŒ€í™” ì¸ë±ìŠ¤ ì¦ê°€
+        // »óÈ£ÀÛ¿ë È°¼ºÈ­ ¹× ´ëÈ­ ÀÎµ¦½º Áõ°¡
         isAct = true;
         talkIndex++;
     }
