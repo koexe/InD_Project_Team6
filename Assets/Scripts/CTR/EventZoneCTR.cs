@@ -52,7 +52,8 @@ public class EventZoneCTR: MonoBehaviour
             if (random_percent_num <= g_fpercent) // percent이 변수 안에 들어있는 숫자 만큼의 퍼센트로 이벤트 발생
             {
                 int random_monster_number = Random.Range(0, g_gmonster_List.Length); // 몬스터 뽑기
-                GameManager.Instance.LoadBattleScene(g_gmonster_List[random_monster_number]);
+                int random_monster_Level = Random.Range(g_iLevelBoundary[0], g_iLevelBoundary[1]);
+                GameManager.Instance.LoadBattleScene(g_gmonster_List[random_monster_number],random_monster_Level);
                 FindCoroutine = null;
                 break;
             }

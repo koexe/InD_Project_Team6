@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public int[] g_iReqExp;
 
     public string g_sEnemyBattleUnit;
+    public int g_iEnemyBattleLvl;
 
     public enum Action { CANCLE, ATTACK, ITEM, CHANGE, RUN }
     //싱글턴 구현
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(6.0f / 2 * (2 + 1));
         //지정된 인스턴스가 없다면 지정, 이미 존재한다면 대체
         if (_instance == null)
         {
@@ -87,11 +89,12 @@ public class GameManager : MonoBehaviour
     {
         return m_DataManager.GetUnitSaveData(className);
     }
-    public void LoadBattleScene(string enemyBattleUnit)
+    public void LoadBattleScene(string enemyBattleUnit, int enemyLevel)
     {
         g_GameState = GameState.BATTLE;
         AsyncOperation SceneOper = SceneManager.LoadSceneAsync("BattleScene", LoadSceneMode.Additive);
         g_sEnemyBattleUnit = enemyBattleUnit;
+        g_iEnemyBattleLvl = enemyLevel;
         Canvas_WorldScene.SetActive(false);
         SceneOper.allowSceneActivation = true; 
     }
@@ -123,7 +126,7 @@ public class GameManager : MonoBehaviour
     public int CompareType(Type SkillType, Type UnitType)
     {
         int isDouble = 0;
-        if (UnitType == Type.GODBEAST)
+        if (UnitType == Type.GODBEAST || SkillType == Type.GODBEAST)
             isDouble = 0;
         else if (SkillType - UnitType == -1 || SkillType - UnitType == 3)
             isDouble = 1;

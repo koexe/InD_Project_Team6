@@ -17,6 +17,7 @@ TagManager:
   - Cylinder
   - Water
   - UI
+  - Ground
   - Player
   - Item
   - object
@@ -42,8 +43,16 @@ TagManager:
   - 
   - 
   - 
-  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 2495384707
+    locked: 0
+  - name: Objects
+    uniqueID: 2026455213
+    locked: 0
+  - name: Player
+    uniqueID: 1817374867
     locked: 0

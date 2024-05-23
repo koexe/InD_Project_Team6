@@ -29,6 +29,7 @@ public class SOStateAttack : SOAttackBase
         else if (m_IsDouble == 2)
             finalAttackDamage = (int)(finalAttackDamage * 0.8f);
 
+        Debug.Log(m_IsDouble);
         Defender.TakeDamage(finalAttackDamage);
 
         ApplyEffect(Atker, Defender, finalAttackDamage);

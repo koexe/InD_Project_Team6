@@ -17,9 +17,10 @@ public class UnitManager
         UnitEntity_temp.transform.GetComponent<UnitEntity>().SetPlayerUnit(unitName);
         g_PlayerUnits[index] = UnitEntity_temp;
     }
-    public GameObject SetUnitEntityByName(string unitName)
+    public GameObject SetUnitEntityByName(string unitName,int level)
     {
         GameObject UnitEntity_temp = GameObject.Instantiate(UnitPrefab);
+        UnitEntity_temp.transform.GetComponent<UnitEntity>().m_iUnitLevel = level;
         UnitEntity_temp.transform.GetComponent<UnitEntity>().SetUnit(unitName);
         return UnitEntity_temp;
     }
