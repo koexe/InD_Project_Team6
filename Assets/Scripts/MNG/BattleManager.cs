@@ -251,7 +251,7 @@ public class BattleManager : MonoBehaviour
             playerUnit.AttackByIndex(playerUnit, enemyUnit, randomIndex);
             enemyHUD.SetHUD(enemyUnit);
             dialogueText.text = playerUnit.m_sUnitName + "! " + playerUnit.GetSkillname(playerUnit, m_iPlayerActionIndex) + " 공격!!";
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.8f);
             enemyHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
             yield return CheckDouble(randomIndex, playerUnit, enemyUnit);
             yield return CheckEffected(randomIndex, playerUnit, enemyUnit);
@@ -268,7 +268,7 @@ public class BattleManager : MonoBehaviour
                 enemyHUD.SetHUD(enemyUnit);
                 ShowSkilleffect(enemyHUD, playerUnit.m_AttackBehaviors[m_iPlayerActionIndex]);
                 dialogueText.text = playerUnit.m_sUnitName + "의 " + playerUnit.GetSkillname(playerUnit, m_iPlayerActionIndex) + " 공격!!";
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.8f);
                 enemyHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
                 yield return CheckDouble(m_iPlayerActionIndex, playerUnit, enemyUnit);
                 yield return CheckEffected(m_iPlayerActionIndex, playerUnit, enemyUnit);
@@ -351,7 +351,7 @@ public class BattleManager : MonoBehaviour
         string AttackName = enemyUnit.GetSkillname(enemyUnit, randomAttackIndex);
         playerHUD.SetHUD(playerUnit);
         dialogueText.text = enemyUnit.m_sUnitName + "이 " + AttackName + "공격을 했다!";
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         playerHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
         yield return CheckDouble(randomAttackIndex, enemyUnit, playerUnit);
         yield return CheckEffected(randomAttackIndex, enemyUnit, playerUnit);
