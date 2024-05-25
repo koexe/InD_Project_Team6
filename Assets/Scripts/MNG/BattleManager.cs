@@ -55,6 +55,8 @@ public class BattleManager : MonoBehaviour
     void BattleInit()
     {
         //전투 초기화
+        enemyHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
+        playerHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
         g_EnemyUnit = GameManager.Instance.m_UnitManager.SetUnitEntityByName(GameManager.Instance.g_sEnemyBattleUnit , GameManager.Instance.g_iEnemyBattleLvl);
         state = BattleState.START;
         if (GameManager.Instance.g_InventoryGO.transform.localScale == new Vector3(1, 1, 1))
@@ -245,10 +247,12 @@ public class BattleManager : MonoBehaviour
             dialogueText.text = playerUnit.m_sUnitName + "은 지금 광란상태다!";
             yield return new WaitForSeconds(1f);
             int randomIndex = Random.Range(0, playerUnit.m_AttackBehaviors.Length);
+            ShowSkilleffect(enemyHUD, playerUnit.m_AttackBehaviors[randomIndex]);
             playerUnit.AttackByIndex(playerUnit, enemyUnit, randomIndex);
             enemyHUD.SetHUD(enemyUnit);
             dialogueText.text = playerUnit.m_sUnitName + "! " + playerUnit.GetSkillname(playerUnit, m_iPlayerActionIndex) + " 공격!!";
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
+            enemyHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
             yield return CheckDouble(randomIndex, playerUnit, enemyUnit);
             yield return CheckEffected(randomIndex, playerUnit, enemyUnit);
         }
@@ -262,8 +266,10 @@ public class BattleManager : MonoBehaviour
             {
                 playerUnit.AttackByIndex(playerUnit, enemyUnit, m_iPlayerActionIndex);
                 enemyHUD.SetHUD(enemyUnit);
+                ShowSkilleffect(enemyHUD, playerUnit.m_AttackBehaviors[m_iPlayerActionIndex]);
                 dialogueText.text = playerUnit.m_sUnitName + "의 " + playerUnit.GetSkillname(playerUnit, m_iPlayerActionIndex) + " 공격!!";
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
+                enemyHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
                 yield return CheckDouble(m_iPlayerActionIndex, playerUnit, enemyUnit);
                 yield return CheckEffected(m_iPlayerActionIndex, playerUnit, enemyUnit);
             }
@@ -334,14 +340,19 @@ public class BattleManager : MonoBehaviour
         // state 변경
         state = BattleState.ENEMYTURN;
         // 랜덤 공격
-
-        int randomAttackIndex = Random.Range(0, 2);
+        int randomAttackIndex;
+        if (enemyUnit.UnitType != GameManager.Type.GODBEAST)
+            randomAttackIndex = Random.Range(0, 3);
+        else
+            randomAttackIndex = Random.Range(0, 4);
+        ShowSkilleffect(playerHUD, enemyUnit.m_AttackBehaviors[randomAttackIndex]);
         enemyUnit.AttackByIndex(enemyUnit, playerUnit, randomAttackIndex);
         //적 공격
         string AttackName = enemyUnit.GetSkillname(enemyUnit, randomAttackIndex);
         playerHUD.SetHUD(playerUnit);
         dialogueText.text = enemyUnit.m_sUnitName + "이 " + AttackName + "공격을 했다!";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+        playerHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
         yield return CheckDouble(randomAttackIndex, enemyUnit, playerUnit);
         yield return CheckEffected(randomAttackIndex, enemyUnit, playerUnit);
 
@@ -578,8 +589,9 @@ public class BattleManager : MonoBehaviour
         return "";
     }
 
-    public void CatchProcess()
+    public void ShowSkilleffect(BattleHUDCTR hud , SOAttackBase attack)
     {
+        hud.animator_SkillEffect.SetInteger("EffectNum", attack.EffectNum);
 
     }
     #region 버튼 처리

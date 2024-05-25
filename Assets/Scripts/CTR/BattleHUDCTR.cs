@@ -13,6 +13,7 @@ public class BattleHUDCTR : MonoBehaviour
     public TextMeshProUGUI HPText;
     public Slider hpSlider; // 체력을 표시하는 슬라이더
     public Animator animator;
+    public Animator animator_SkillEffect;
   
 
     public Image g_imagePortrait; // 초상화 이미지
