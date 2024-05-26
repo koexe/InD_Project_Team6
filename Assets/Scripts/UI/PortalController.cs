@@ -10,7 +10,7 @@ public class PortalController : MonoBehaviour
 
     public float activationDistance = 2f; // 플레이어가 포털과의 활성화 거리
 
-    bool optionImageActive = false; // 옵션 이미지의 활성화 여부
+   // bool optionImageActive = false; // 옵션 이미지의 활성화 여부
 
     void Update()
     {

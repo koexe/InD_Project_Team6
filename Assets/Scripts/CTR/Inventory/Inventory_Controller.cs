@@ -192,7 +192,11 @@ public class Inventory_Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             if (GameManager.Instance.g_GameState == GameManager.GameState.BATTLE)
+            {
+                Debug.Log(GameManager.Instance.g_GameState);
                 return;
+            }
+               
             if (g_gin_V.transform.localScale == new Vector3(1, 1, 1)) // 인벤토리가 켜있으면
             {
                 Hide_Inv();
