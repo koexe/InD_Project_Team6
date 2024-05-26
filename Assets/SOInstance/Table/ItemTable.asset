@@ -18,7 +18,7 @@ MonoBehaviour:
     m_sItemDescription: "\uB3C4\uAE68\uBE44\uB97C \uD3EC\uD68D\uD560\uC218\uC788\uB294
       \uC544\uC8FC \uC911\uC694\uD55C \uBB3C\uAC74. "
     m_sItemUseDialog: "\uC744 \uBCF5\uC8FC\uBA38\uB2C8\uC5D0 \uAC00\uB454\uB2E4!/3..2..1 "
-    m_ItemSprite: {fileID: 21300000, guid: cfd249cf163751d4eba9ab78b213b332, type: 3}
+    m_ItemSprite: {fileID: 21300000, guid: da1bf9069d662e24aa9e98e279b9a649, type: 3}
     m_ItemEffect: {fileID: 11400000, guid: 0163ee16e8b46d746bcf3c3ff7329abf, type: 2}
   - m_iItemNo: 2
     m_sItemName: "\uD1F4\uCE58\uBD80\uC801"

@@ -50,9 +50,6 @@ TagManager:
   - name: Ground
     uniqueID: 397347137
     locked: 0
-  - name: Plant
-    uniqueID: 3921008803
-    locked: 0
   - name: Item
     uniqueID: 3016912693
     locked: 0
