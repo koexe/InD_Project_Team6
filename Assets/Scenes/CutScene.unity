@@ -308,8 +308,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4228073416d6c4e9b224771fe3aa65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeTime: 31
-  sceneName: WorldScene
+  changeTime: 38
+  mainSceneName: MainScene
+  worldSceneName: WorldScene
+  cutSceneName: CutScene
+  cutScene2Name: CutScene2
   bgmAudioSource: {fileID: 1539401056}
 --- !u!4 &16301651
 Transform:
