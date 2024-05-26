@@ -29,22 +29,6 @@ public class EventZoneCTR: MonoBehaviour
         }
     }
     
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (GameManager.Instance.g_GameState == GameManager.GameState.INPROGRESS)
-        {
-            if (collision.CompareTag("Player"))
-            {
-                if (FindCoroutine == null)
-                {             
-                    FindCoroutine = StartCoroutine("Find_Monster");
-                    
-                }
-            }
-        }
-    }
-    
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
