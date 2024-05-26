@@ -71,6 +71,9 @@ public class SaveGameManager : MonoBehaviour
             System.IO.File.Delete(path);
         GameManager.Instance.m_DataManager.DeleteSave();
 
+        string path2 = Application.persistentDataPath + "PlayerUnits.json";
+        if (File.Exists(path))
+            System.IO.File.Delete(path2);
 
         Debug.Log("Player data and quest data have been deleted.");
     }

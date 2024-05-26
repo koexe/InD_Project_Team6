@@ -137,8 +137,12 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        Vector2 movement = new Vector2(m_fx, m_fy).normalized * g_fspeed * Time.deltaTime;
-        m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement); // 플레이어와 오브젝트 충돌시 떨림현상 방지
+        Vector2 Dir = new Vector2(m_fx, m_fy).normalized;
+
+        Vector2 movement =  Dir * g_fspeed * Time.deltaTime;
+
+        m_Rigidbody2D.velocity = movement;
+        //m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement); // 플레이어와 오브젝트 충돌시 떨림현상 방지
     }
 
     void Run()
@@ -153,7 +157,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector2 movement = new Vector2(m_fx, m_fy).normalized * g_frun_Speed * Time.deltaTime;
-        m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement); // 플레이어와 오브젝트 충돌시 떨림현상 방지
+        m_Rigidbody2D.velocity = movement;
+        //m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement); // 플레이어와 오브젝트 충돌시 떨림현상 방지
     }
 
     private void TempAction()
