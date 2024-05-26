@@ -65,6 +65,13 @@ public class SaveGameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("QuestId");
         PlayerPrefs.DeleteKey("QuestActionIndex");
         PlayerPrefs.Save();
+        string path = Path.Combine(Application.persistentDataPath, "inventory_data.json");
+
+        if (File.Exists(path))
+            System.IO.File.Delete(path);
+        GameManager.Instance.m_DataManager.DeleteSave();
+
+
         Debug.Log("Player data and quest data have been deleted.");
     }
 

@@ -139,6 +139,13 @@ public class DataAssetManager
             Debug.Log("Savefile missed. created new Savefile");
         }
     }
+    public void DeleteSave()
+    {
+        string path = Application.persistentDataPath + "Save.json";
+        if (File.Exists(path))
+            System.IO.File.Delete(path);
+    }
+
     public void SavePlayerUnits()
     {
         string UnitNames = "";
