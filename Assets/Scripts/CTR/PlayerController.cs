@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TempAction();
+        //TempAction();
         if (GameManager.Instance.g_GameState == GameManager.GameState.INPROGRESS)
         {
             Movement();
@@ -128,15 +128,6 @@ public class PlayerController : MonoBehaviour
 
     void Walk()
     {
-        if (m_fx == 0 && m_fy == 0)
-        {
-            // 움직이지 않을 때 처리
-        }
-        else
-        {
-            // 움직일 때 처리
-        }
-
         if (m_fx == -1 || m_fy == -1)
         {
             transform.localScale = new Vector3(-1, 1, 1);
@@ -152,15 +143,6 @@ public class PlayerController : MonoBehaviour
 
     void Run()
     {
-        if (m_fx == 0 && m_fy == 0)
-        {
-            // 움직이지 않을 때 처리
-        }
-        else
-        {
-            // 움직일 때 처리
-        }
-
         if (m_fx == -1 || m_fy == -1)
         {
             transform.localScale = new Vector3(-1, 1, 1);

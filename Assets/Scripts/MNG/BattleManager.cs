@@ -374,7 +374,7 @@ public class BattleManager : MonoBehaviour
         //적 공격
         string AttackName = enemyUnit.GetSkillname(enemyUnit, randomAttackIndex);
         playerHUD.SetHUD(playerUnit);
-        dialogueText.text = enemyUnit.m_sUnitName + "이(가) " + AttackName + "공격을 했다!";
+        dialogueText.text = enemyUnit.m_sUnitName + "이(가) " + AttackName + " 공격을 했다!";
         yield return new WaitForSeconds(0.8f);
         playerHUD.animator_SkillEffect.SetInteger("EffectNum", 20);
         yield return CheckDouble(randomAttackIndex, enemyUnit, playerUnit);

@@ -29,19 +29,21 @@ public class DIcElementCTR : MonoBehaviour
             UnitName.text = m_UnitName;
             UnitLevel.text = SaveUnit.m_iUnitLevel + "Lvl";
             UnitHP.maxValue = Unit.m_iUnitHP + ((SaveUnit.m_iUnitLevel - 5) * 2 * SaveUnit.m_iUnitLevel);
-            
+ 
             for (int i = 0; i < GameManager.Instance.m_UnitManager.CheckUnitAmount(); i++)
             {
                 if (m_UnitName == GameManager.Instance.m_UnitManager.g_PlayerUnits[i].GetComponent<UnitEntity>().m_sUnitName)
                 {
                     UnitHP.value = GameManager.Instance.m_UnitManager.g_PlayerUnits[i].GetComponent<UnitEntity>().m_iCurrentHP;
                     HPText.text = (Unit.m_iUnitHP + ((SaveUnit.m_iUnitLevel - 5) * 2 * SaveUnit.m_iUnitLevel)) + "/" + UnitHP.value;
+                    IntimacyText.text = GameManager.Instance.m_UnitManager.g_PlayerUnits[i].GetComponent<UnitEntity>().m_iIntimacy + " / " + "10";
                 }
-                   
                 else
                 {
                     UnitHP.value = UnitHP.maxValue;
                     HPText.text = (Unit.m_iUnitHP + ((SaveUnit.m_iUnitLevel - 5) * 2 * SaveUnit.m_iUnitLevel)) + "/" + UnitHP.maxValue;
+                    UnitIntimacy.value = SaveUnit.m_iIntimacy;
+                    IntimacyText.text = SaveUnit.m_iIntimacy + " / " + "10";
                 }
 
             }

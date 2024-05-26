@@ -12,6 +12,7 @@ public class ItemEntity : MonoBehaviour
     public IItemBehavior ExecuteEffect;
     public UnitEntity allyUnit;
     public SpriteRenderer spriteRenderer;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class ItemEntity : MonoBehaviour
         m_ItemSprite = ItemData.m_ItemSprite;
         m_sItemDescription = ItemData.m_sItemDescription;
         m_sItemUseDialog = ItemData.m_sItemUseDialog;
+        number = ItemData.m_iItemNo;
         ExecuteEffect = Instantiate(ItemData.m_ItemEffect);
         spriteRenderer.sprite = m_ItemSprite;
     }

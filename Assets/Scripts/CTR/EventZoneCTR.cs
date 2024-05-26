@@ -21,9 +21,14 @@ public class EventZoneCTR: MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             if(FindCoroutine != null)
+            {
                 StopCoroutine(FindCoroutine);
+                FindCoroutine = null;
+            }
+
         }
     }
+    
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (GameManager.Instance.g_GameState == GameManager.GameState.INPROGRESS)
@@ -38,6 +43,7 @@ public class EventZoneCTR: MonoBehaviour
             }
         }
     }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -74,6 +80,7 @@ public class EventZoneCTR: MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(1f);
         }
+        FindCoroutine = null;
     }
     
 

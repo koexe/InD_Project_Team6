@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     private GameObject g_DictionaryGO;
     public List<SOAttackBase> Skills;
     public int[] g_iReqExp;
-    public int g_Season;
 
     public string g_sEnemyBattleUnit;
     public int g_iEnemyBattleLvl;
