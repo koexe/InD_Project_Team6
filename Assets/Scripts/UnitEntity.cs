@@ -133,9 +133,22 @@ public class UnitEntity : MonoBehaviour
         m_spriteUnitImage = UnitData.m_UnitSprite;
         m_AttackBehaviors = new SOAttackBase[4];
 
-        m_AttackBehaviors[0] = Instantiate(GameManager.Instance.Skills[UnitSaveData.m_AttackBehav_1]);
-        m_AttackBehaviors[1] = Instantiate(GameManager.Instance.Skills[UnitSaveData.m_AttackBehav_2]);
-        m_AttackBehaviors[2] = Instantiate(GameManager.Instance.Skills[UnitSaveData.m_AttackBehav_3]);
+
+        if (m_sUnitName == "황룡")
+        {
+            m_AttackBehaviors[0] = UnitData.m_AttackBehav_1;
+            m_AttackBehaviors[1] = UnitData.m_AttackBehav_2;
+            m_AttackBehaviors[2] = UnitData.m_AttackBehav_3;
+            m_AttackBehaviors[3] = UnitData.m_AttackBehav_Ult;
+        }
+        else
+        {
+            m_AttackBehaviors[0] = Instantiate(GameManager.Instance.Skills[UnitSaveData.m_AttackBehav_1]);
+            m_AttackBehaviors[1] = Instantiate(GameManager.Instance.Skills[UnitSaveData.m_AttackBehav_2]);
+            m_AttackBehaviors[2] = Instantiate(GameManager.Instance.Skills[UnitSaveData.m_AttackBehav_3]);
+
+        }
+
 
         m_AttackBehaviors[3] = Instantiate(UnitData.m_AttackBehav_Ult);
         for (int i = 0; i < m_iSkillAmounts.Length; i++)
