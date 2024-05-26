@@ -38,6 +38,7 @@ public class Inventory_Controller : MonoBehaviour
     public Image Img_View;
     public TextMeshProUGUI name_View;
     public TextMeshProUGUI Des_View;
+    public GameObject UseButton;
     // Start is called before the first frame update
 
     private void Awake()
@@ -232,6 +233,6 @@ public class Inventory_Controller : MonoBehaviour
         {
             GameObject.Find("BattleManager").transform.GetComponent<BattleManager>().state = BattleManager.BattleState.ACTION;
         }
-
+        UseButton.SetActive(false);
     }
 }

@@ -21,6 +21,9 @@ public class SOBaseAttack : SOAttackBase
         else if (m_IsDouble == 2)
             finalAttackDamage = (int)(finalAttackDamage * 0.8);
 
+        if(finalAttackDamage <= 0)
+            finalAttackDamage = 1;
+
         Defender.TakeDamage(finalAttackDamage);
 
     }

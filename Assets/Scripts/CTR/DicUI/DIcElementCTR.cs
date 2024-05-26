@@ -10,6 +10,8 @@ public class DIcElementCTR : MonoBehaviour
     public Image UnitImage;
     public TextMeshProUGUI UnitName;
     public TextMeshProUGUI UnitLevel;
+    public TextMeshProUGUI HPText;
+    public TextMeshProUGUI IntimacyText;
     public Slider UnitHP;
     public Slider UnitIntimacy;
     public UnitTable.UnitStats Unit;
@@ -27,12 +29,21 @@ public class DIcElementCTR : MonoBehaviour
             UnitName.text = m_UnitName;
             UnitLevel.text = SaveUnit.m_iUnitLevel + "Lvl";
             UnitHP.maxValue = Unit.m_iUnitHP + ((SaveUnit.m_iUnitLevel - 5) * 2 * SaveUnit.m_iUnitLevel);
+            
             for (int i = 0; i < GameManager.Instance.m_UnitManager.CheckUnitAmount(); i++)
             {
                 if (m_UnitName == GameManager.Instance.m_UnitManager.g_PlayerUnits[i].GetComponent<UnitEntity>().m_sUnitName)
+                {
                     UnitHP.value = GameManager.Instance.m_UnitManager.g_PlayerUnits[i].GetComponent<UnitEntity>().m_iCurrentHP;
+                    HPText.text = (Unit.m_iUnitHP + ((SaveUnit.m_iUnitLevel - 5) * 2 * SaveUnit.m_iUnitLevel)) + "/" + UnitHP.value;
+                }
+                   
                 else
+                {
                     UnitHP.value = UnitHP.maxValue;
+                    HPText.text = (Unit.m_iUnitHP + ((SaveUnit.m_iUnitLevel - 5) * 2 * SaveUnit.m_iUnitLevel)) + "/" + UnitHP.maxValue;
+                }
+
             }
             UnitIntimacy.maxValue = 10;
             UnitIntimacy.value = SaveUnit.m_iIntimacy;

@@ -22,6 +22,9 @@ public class SOStateAttack : SOAttackBase
 
         int finalAttackDamage = AttackDamage - (Defender.m_iUnitDef + Defender.m_iPermanentDefMod + Defender.m_iTempDefMod);
 
+        if(finalAttackDamage <= 0)
+            finalAttackDamage = 1;
+
         m_IsDouble = GameManager.Instance.CompareType(SkillType, Defender.UnitType);
 
         if (m_IsDouble == 1)
@@ -87,8 +90,9 @@ public class SOStateAttack : SOAttackBase
         if (m_SkillEffect == SkillEffect.HALF)
         {
             m_IsEffected = true;
-            float hp = Defender.m_iCurrentHP / 30.0f;
-            Defender.m_iCurrentHP = (int)hp;
+            float hp = Defender.m_iCurrentHP / 3.0f;
+            Debug.Log(hp);
+            Defender.m_iCurrentHP -= (int)hp;
         }
         if (m_SkillEffect == SkillEffect.NULL && m_EffectState == UnitEntity.UnitState.NULL)
             m_IsEffected = false;

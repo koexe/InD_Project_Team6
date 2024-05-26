@@ -107,7 +107,7 @@ public class DicCTR : MonoBehaviour,IPointerClickHandler
                     {
                         GameManager.Instance.m_UnitManager.SetPlayerUnitEntityByName(GameManager.Instance.m_UnitManager.g_PlayerUnits[index].GetComponent<UnitEntity>().m_sUnitName, i);
                         GameManager.Instance.m_UnitManager.SetPlayerUnitEntityByName(g_PortalEventButton.name, index);
-                        g_PortalChangeButton.SetActive(false);
+                        //g_PortalChangeButton.SetActive(false);
                         return;
                     }
                     else
@@ -121,8 +121,8 @@ public class DicCTR : MonoBehaviour,IPointerClickHandler
             }
 
             GameManager.Instance.m_UnitManager.SetPlayerUnitEntityByName(g_PortalEventButton.name, index);
-            g_PortalChangeButton.SetActive(false);
-            GameManager.Instance.g_GameState = GameManager.GameState.INPROGRESS;
+            //g_PortalChangeButton.SetActive(false);
+            //GameManager.Instance.g_GameState = GameManager.GameState.INPROGRESS;
         }
         else
         {

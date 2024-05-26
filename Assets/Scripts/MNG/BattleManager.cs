@@ -63,8 +63,7 @@ public class BattleManager : MonoBehaviour
         BG.sprite = BattleBGSprites[Random.Range(0, BattleBGSprites.Length)];
         g_EnemyUnit = GameManager.Instance.m_UnitManager.SetUnitEntityByName(GameManager.Instance.g_sEnemyBattleUnit, GameManager.Instance.g_iEnemyBattleLvl);
         state = BattleState.START;
-        if (GameManager.Instance.GetInventoryGO().transform.localScale == new Vector3(1, 1, 1))
-            GameManager.Instance.GetInventoryGO().transform.localScale = new Vector3(0, 0, 1);
+        GameManager.Instance.GetInventoryGO().transform.GetComponentInChildren<Inventory_Controller>().Hide_Inv();
         BattleCoroutine = StartCoroutine(SetupBattle());
 
     }
@@ -206,6 +205,7 @@ public class BattleManager : MonoBehaviour
     // 전투 셋업
     IEnumerator SetupBattle()
     {
+        state = BattleState.START;
         enemyUnit = g_EnemyUnit.GetComponent<UnitEntity>();
         enemyHUD.CheckUnitNo(enemyUnit.m_iUnitNo);
         g_ChangeImage.SetActive(true);
@@ -601,7 +601,7 @@ public class BattleManager : MonoBehaviour
         else if (Atker.m_AttackBehaviors[index].m_SkillEffect == SOAttackBase.SkillEffect.DEPRESSED)
             return Defer.m_sUnitName + "은(는) 의욕을 상실한듯 하다.";
         else if (Atker.m_AttackBehaviors[index].m_SkillEffect == SOAttackBase.SkillEffect.HALF)
-            return Defer.m_sUnitName + "일격!";
+            return "일격!";
         else if (Atker.m_AttackBehaviors[index].m_SkillEffect == SOAttackBase.SkillEffect.ULTIMATE)
             return Defer.m_sUnitName + "은(는) 최대의 힘을 냈다!";
         else if (Atker.m_AttackBehaviors[index].m_SkillEffect == SOAttackBase.SkillEffect.ONLYONCE)

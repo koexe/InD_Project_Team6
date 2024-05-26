@@ -20,7 +20,9 @@ public class BaseItemEffect : SOItemBase
         switch (g_sType)
         {
             case "회복":
+                Debug.Log(allyUnit.m_iCurrentHP);
                 allyUnit.Heal(m_iEffectAmount);
+                Debug.Log(allyUnit.m_iCurrentHP);
                 break;
             case "공격력":
                 allyUnit.m_iPermanentAtkMod += g_iStr;
