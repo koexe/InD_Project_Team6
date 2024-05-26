@@ -193,7 +193,10 @@ public class Inventory_Controller : MonoBehaviour
         {
             if (GameManager.Instance.g_GameState == GameManager.GameState.BATTLE)
             {
-                Debug.Log(GameManager.Instance.g_GameState);
+                if(GameObject.Find("BattleManager") == null)
+                {
+                    GameManager.Instance.g_GameState = GameManager.GameState.INPROGRESS;
+                }
                 return;
             }
                

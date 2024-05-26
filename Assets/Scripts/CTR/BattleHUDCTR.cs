@@ -85,6 +85,10 @@ public class BattleHUDCTR : MonoBehaviour
         {
             Scale = new Vector2(72.0f, 72.0f);
         }
+        else
+        {
+            Scale = new Vector2(53.0f, 62.0f);
+        }
         Scale *= 7;
         g_imageAnimation.sizeDelta = Scale;
     }
