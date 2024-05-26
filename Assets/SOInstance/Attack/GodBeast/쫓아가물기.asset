@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uCAD3\uC544\uAC00\uBB3C\uAE30"
   m_EditorClassIdentifier: 
   m_iSkillNo: 2
-  m_fAttackMag: 1
+  m_fAttackMag: 2
   m_sAttackName: "\uCAD3\uC544\uAC00\uBB3C\uAE30"
   m_sSkillDescription: "\uAC15\uB825\uD55C \uD798\uC73C\uB85C \uC0C1\uB300\uB97C
     \uBB38\uB2E4. \uD55C\uBC88 \uBB3C\uBA74 \uC808\uB54C \uB193\uC9C0 \uC54A\uB294\uB2E4."
@@ -25,3 +25,6 @@ MonoBehaviour:
   m_SkillEffect: 0
   m_isPlayed: 0
   m_iAdditionalSpeed: 0
+  EffectNum: 0
+  m_IsDouble: 0
+  m_IsEffected: 0

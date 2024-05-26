@@ -81,9 +81,9 @@ public class BattleHUDCTR : MonoBehaviour
         {
             Scale = new Vector2(72.0f, 72.0f);
         }
-        else
+        else if(Num == 12)
         {
-            Scale = new Vector2(56.0f, 60.0f);
+            Scale = new Vector2(72.0f, 72.0f);
         }
         Scale *= 7;
         g_imageAnimation.sizeDelta = Scale;
